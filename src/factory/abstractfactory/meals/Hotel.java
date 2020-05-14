@@ -20,7 +20,7 @@ public class Hotel {
         meals.add(mealFactory.getMeal("breakfast"));
 
         for (Meal m : meals) {
-            m.dispayMeal();
+            m.displayMeal();
         }
     }
 }

@@ -13,6 +13,13 @@ public class CalculatorDriver {
             String heightUnits = client.getMeasurementSystem() == MeasurementSystem.METRIC ? "meters" : "inches";
 
             double bmi = CalcTool.calcBMI(client.getHeight(), client.getWeight(), client.getMeasurementSystem());
+            //Thread Safe
+           ThreadSafeCalcTool tsct = ThreadSafeCalcTool.getInstance();
+           double bmiSynch = tsct.calcBMI(client);
+
+           //Enum
+            EnumCalcTool ect = EnumCalcTool.INSTANCE;
+            double bmiEnum = ect.calcBMI(client);
 
             System.out.printf("%s weighs %.1f %s and is %.1f %s tall with a BMI of %.2f\n",
                     client.getName(),
@@ -20,10 +27,14 @@ public class CalculatorDriver {
                     weightUnits,
                     client.getHeight(),
                     heightUnits,
-                    bmi);
+                    //bmi
+                    //bmiSynch
+                    bmiEnum);
         }
 
-        System.out.println("The average BMI calculated in this run is " + CalcTool.averageBMI());
+        //System.out.println("The average BMI calculated in this run is " + CalcTool.averageBMI());
+        //System.out.println("The average BMI calculated in this run is " + ThreadSafeCalcTool.averageBMI());
+        System.out.println("The average BMI calculated in this run is " + EnumCalcTool.averageBMI());
     }
 
     private static List<Client> initClientList() {
